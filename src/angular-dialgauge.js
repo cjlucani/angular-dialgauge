@@ -18,6 +18,7 @@ angular.module('angular-dialgauge', [
                 rotate: '@',
                 angle: '@',
                 units: '@',
+                animate: '@',
                 title: '@',
                 dialWidth: '@',
                 borderWidth: '@',
@@ -66,6 +67,7 @@ angular.module('angular-dialgauge', [
                     scaleMin: 0,
                     scaleMax: 100,
                     rotate: 180,
+                    animate: "on",
                     angle: 225,
                     units: "",
                     title: "",
@@ -145,6 +147,7 @@ angular.module('angular-dialgauge', [
                     'scaleMin',
                     'scaleMax',
                     'lineCap',
+                    'animate',
                     'barWidth',
                     'barColor',
                     'barColorEnd',
@@ -176,9 +179,10 @@ angular.module('angular-dialgauge', [
 
                 // Set a watch on the model so we can update the dynamic part of the gauge
                 $scope.$watch("ngModel", function (value) {
+
                     // The gauge isn't updated immediately.
                     // We use a timer to update the gauge dynamically
-                    if (currentValue == null) {
+                    if (currentValue == null || cfg.animate == 'off') {
                         currentValue = value;
                         updateBar(value);
                         return;
